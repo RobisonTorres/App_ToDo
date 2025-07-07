@@ -22,4 +22,12 @@ public class ServicesTasks {
     public List<Task> getAllTask() {
         return repositoryTask.findAll();
     }
+
+    public Task saveTask(Task task) {
+        return repositoryTask.save(task);
+    }
+
+    public void deleteTaskByID(Integer id) {
+        repositoryTask.deleteById(id);
+    }
 }

@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class AppToDoApplication {
+public class AppToDo {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppToDoApplication.class, args);
+		SpringApplication.run(AppToDo.class, args);
 	}
 
 	@Bean
@@ -21,4 +21,4 @@ public class AppToDoApplication {
 		};
 	}
 
-}
+} 

@@ -3,6 +3,7 @@ package com.techflow.management.App_ToDo.Controllers;
 import com.techflow.management.App_ToDo.Models.Task;
 import com.techflow.management.App_ToDo.Services.ServicesTasks;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -32,5 +33,23 @@ public class MainController {
     public List<Task> getAllTasks() {
 
         return servicesTasks.getAllTask();
+    }
+
+    @PostMapping("create_task")
+    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+        servicesTasks.saveTask(task);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("update_task")
+    public ResponseEntity<Task> updateTask(@RequestBody Task task, PathVariable id) {
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("delete_task/{id}")
+    public ResponseEntity<Void> deleteCar(@PathVariable Integer id) {
+        servicesTasks.deleteTaskByID(id);
+        return ResponseEntity.ok().build();
     }
 }
