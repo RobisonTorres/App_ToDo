@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+</head>
+    <title>App To Do</title>
+</head>
+<body>
+    <h1>Welcome to the App To Do!</h1>    
+    <p>Here you can easily manage your tasks.</p>
+
+    <!-- Search and Add Task -->
+    <section>
+      <input id="searchTask" type="text" name="search_info" placeholder="Search Task..." />
+      <button id="addNewTask" onclick="document.getElementById('popForm').style.display = 'block'">Add</button>
+    </section>
+
+    <!-- All tasks Display -->
+    <section>
+    <div>
+        <div>
+            <div id="showAllTasks"></div>
+        </div>
+    </div>
+    </section>
+    
+    <!-- New Task Form -->
+    <form id="popForm" class="form-popup">
+      <h2>New Task</h2>
+      <div>
+        <div>
+          <label for="name">Name</label>
+          <input type="text" id="name" />
+        </div>
+        <div>
+          <label for="date">Date</label>
+          <input type="date" id="date" />
+        </div>
+        <div>
+          <label for="status">Status</label>
+          <select id="status" name="status">
+            <option value="" disabled selected hidden>Status</option>
+            <option value="In_Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+            <option value="Suspended">Suspended</option>
+          </select>
+        </div>
+        <div>
+          <label for="Priority">Priority</label>
+          <select id="Priority" name="Priority">
+            <option value="" disabled selected hidden>Priority</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Critical">Critical</option>
+          </select>
+        </div>
+        <div>
+            <button type="submit">Create</button>
+            <button type="button" id="closeForm" onclick="document.getElementById('popForm').style.display = 'none'">Close</button>
+        </div>        
+      </div>
+    </form>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+</body>
+</html>
