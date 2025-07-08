@@ -14,18 +14,19 @@ public class Task {
     private Date date;
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
-    private String priority;
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
 
-    public Task(Integer id, String name, Date date, TaskStatus status, String priority) {
+    public Task() {
+
+    }
+
+    public Task(Integer id, String name, Date date, TaskStatus status, Priority priority) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.status = status;
         this.priority = priority;
-    }
-
-    public Task() {
-
     }
 
     public Integer getId() {
@@ -60,15 +61,20 @@ public class Task {
         this.status = status;
     }
 
-    public String getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
     public enum TaskStatus {
-        IN_PROGRESS, COMPLETED, SUSPENDED
+        In_Progress, Completed, Suspended
     }
+
+    public enum Priority {
+        Low, Medium, High, Critical
+    }
+
 }

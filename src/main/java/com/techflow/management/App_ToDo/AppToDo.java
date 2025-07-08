@@ -17,7 +17,7 @@ public class AppToDo {
 		return args -> {
 
 			System.out.println();
-			System.out.println("Access the app here: http://localhost:8080/get_tasks");
+			System.out.println("Access the app here: http://localhost:8080/apptodo.html");
 		};
 	}
 

@@ -7,9 +7,9 @@ CREATE TABLE IF NOT EXISTS tasks (
 );
 
 INSERT INTO tasks (name, date, status, priority) VALUES
-('Finish project report', '2025-07-10', 'IN_PROGRESS', 'High'),
-('Team meeting', '2025-07-07', 'COMPLETED', 'Medium'),
-('Code review', '2025-07-08', 'IN_PROGRESS', 'High'),
-('Update documentation', '2025-07-09', 'SUSPENDED', 'Low'),
-('Fix login bug', '2025-07-06', 'COMPLETED', 'Critical'),
-('Plan sprint', '2025-07-11', 'IN_PROGRESS', 'Medium');
+('Finish project report', '2025-07-10', 'In_Progress', 'High'),
+('Team meeting', '2025-07-07', 'Completed', 'Medium'),
+('Code review', '2025-07-08', 'In_Progress', 'High'),
+('Update documentation', '2025-07-09', 'Suspended', 'Low'),
+('Fix login bug', '2025-07-06', 'Completed', 'Critical'),
+('Plan sprint', '2025-07-11', 'In_Progress', 'Medium');
