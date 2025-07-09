@@ -49,8 +49,8 @@
           </select>
         </div>
         <div>
-          <label for="Priority">Priority</label>
-          <select id="Priority" name="Priority">
+          <label for="priority">Priority</label>
+          <select id="priority" name="priority">
             <option value="" disabled selected hidden>Priority</option>
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
@@ -59,8 +59,47 @@
           </select>
         </div>
         <div>
-            <button type="submit">Create</button>
+            <button type="submit" onclick="addTask(event)">Create</button>
             <button type="button" id="closeForm" onclick="document.getElementById('popForm').style.display = 'none'">Close</button>
+        </div>        
+      </div>
+    </form>
+
+    <!-- Edit Task Form -->
+    <form id="popFormUpdate" class="form-popup">
+      <h2>Edit Task</h2>
+      <div>
+        <input type="hidden" id="taskId"/>
+        <div>
+          <label for="nameUpdate">Name</label>
+          <input type="text" id="nameUpdate" />
+        </div>
+        <div>
+          <label for="dateUpdate">Date</label>
+          <input type="date" id="dateUpdate" />
+        </div>
+        <div>
+          <label for="statusUpdate">Status</label>
+          <select id="statusUpdate" name="statusUpdate">
+            <option value="" disabled selected hidden>Status</option>
+            <option value="In_Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+            <option value="Suspended">Suspended</option>
+          </select>
+        </div>
+        <div>
+          <label for="priorityUpdate">Priority</label>
+          <select id="priorityUpdate" name="priorityUpdate">
+            <option value="" disabled selected hidden>Priority</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Critical">Critical</option>
+          </select>
+        </div>
+        <div>
+            <button type="submit" onclick="updateTask(event)">Update</button>
+            <button type="button" id="closeForm" onclick="document.getElementById('popFormUpdate').style.display = 'none'">Close</button>
         </div>        
       </div>
     </form>

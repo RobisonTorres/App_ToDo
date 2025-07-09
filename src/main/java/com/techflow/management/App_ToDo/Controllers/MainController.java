@@ -40,15 +40,17 @@ public class MainController {
     }
 
     @PostMapping("create_task")
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+    public ResponseEntity<Task> createTask(@RequestBody TaskDto taskDto) {
+        Task task = modelMapper.map(taskDto, Task.class);
         servicesTasks.saveTask(task);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("update_task")
+    @PutMapping("update_task/{id}")
     public ResponseEntity<Task> updateTask(@RequestBody TaskDto taskDto, @PathVariable Integer id) {
         Task task = servicesTasks.getTaskById(id);
         modelMapper.map(taskDto, task);
+        servicesTasks.saveTask(task);
         return ResponseEntity.ok().build();
     }
 
