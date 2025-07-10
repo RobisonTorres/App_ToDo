@@ -2,21 +2,41 @@ document.getElementById('addNewTask').addEventListener('click', displayForm);
 function displayForm() {
 
     // This function...
+    closeFormUpdate(event);
     const form = document.getElementById('popForm');
     return form.style.display = 'block';
+}
+
+document.getElementById('closeForm').addEventListener('click', closeForm);
+function closeForm(event) {
+
+    // This function...
+    event.preventDefault(); // It prevents form submission if button is in a form.
+    const form = document.getElementById('popForm');
+    return form.style.display = 'none';
 }
 
 function displayFormUpdate() {
 
     // This function...
+    closeForm(event);
     const form = document.getElementById('popFormUpdate');
     return form.style.display = 'block';
+}
+
+document.getElementById('closeFormUpdate').addEventListener('click', closeFormUpdate);
+function closeFormUpdate(event) {
+
+    // This function...
+    event.preventDefault();
+    const form = document.getElementById('popFormUpdate');
+    return form.style.display = 'none';
 }
 
 function showAllTask() {
 
     // This function...
-    fetch('http://localhost:8080/get_tasks', {
+    return fetch('http://localhost:8080/get_tasks', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' } 
     })
@@ -25,16 +45,34 @@ function showAllTask() {
         let output = ``;
         data.forEach(task => {
             output += `
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">${task.name}</h5>
-                            <p class="card-text"><strong>Date:</strong> ${task.date}</p>
-                            <p class="card-text"><strong>Status:</strong> ${task.status}</p>
-                            <p class="card-text"><strong>Priority:</strong> ${task.priority}</p>
-                            <button onclick="editTaskLoad(${task.id})">Edit</button>
-                            <button onclick="deleteTask(${task.id})">Delete</button>
+                        <div id="cards" class="col-md-6 col-lg-4">
+                        <div class="card shadow h-100 border-primary">
+                            <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-center text-primary mb-4">
+                                <i class="fas fa-tasks me-2"></i>${task.name}
+                            </h5>
+
+                            <p class="card-text mb-2">
+                                <i class="far fa-calendar-alt me-2 text-muted"></i><strong>Date:</strong> ${task.date}
+                            </p>
+                            <p class="card-text mb-2">
+                                <i class="fas fa-info-circle me-2 text-muted"></i><strong>Status:</strong> ${task.status}
+                            </p>
+                            <p class="card-text mb-3">
+                                <i class="fas fa-exclamation-triangle me-2 text-muted"></i><strong>Priority:</strong> ${task.priority}
+                            </p>
+
+                            <div class="d-flex justify-content-center gap-2 mt-auto pt-3">
+                                <button class="btn btn-outline-primary flex-grow-1" onclick="editTaskLoad(${task.id})">
+                                <i class="fas fa-pen me-1"></i> Edit
+                                </button>
+                                <button class="btn btn-outline-danger flex-grow-1" onclick="deleteTask(${task.id})">
+                                <i class="fas fa-trash me-1"></i> Delete
+                                </button>
+                            </div>
+                            </div>
                         </div>
-                    </div>
+                        </div>
                     `;});
         document.getElementById('showAllTasks').innerHTML = output;
     }).catch(error => {
@@ -53,6 +91,10 @@ function addTask() {
         status: document.getElementById('status').value,
         priority: document.getElementById('priority').value 
     }
+    if (!taskDto.name || !taskDto.date || !taskDto.status || !taskDto.priority) {
+        alert("Please fill in all fields.");
+        return;
+    }
     fetch('http://localhost:8080/create_task', {
         method: 'POST',
         headers: {
@@ -64,7 +106,6 @@ function addTask() {
         if (response.ok) {
             alert('Task created successfully!');
             document.querySelector('form').reset();
-            //closeForm(event);
             location.reload(true);
         } else {
             alert('Failed to create task.');
@@ -92,7 +133,6 @@ function editTaskLoad(id) {
         document.getElementById('dateUpdate').value = task.date;
         document.getElementById('statusUpdate').value = task.status;
         document.getElementById('priorityUpdate').value = task.priority;
-        console.log(task);
     })
     .catch(error => {
         console.error('Error fetching task:', error);
@@ -111,7 +151,6 @@ function updateTask(event) {
         status: document.getElementById('statusUpdate').value,
         priority: document.getElementById('priorityUpdate').value
     }
-    console.log(taskDto);
     if (!taskDto.name || !taskDto.date || !taskDto.status || !taskDto.priority) {
         alert("Please fill in all fields.");
         return;
@@ -127,14 +166,14 @@ function updateTask(event) {
         if (response.ok) {
             alert('Task updated successfully!');
             document.querySelector('form').reset();
-            showAllTask();
+            location.reload(true);
         } else {
-            alert('Failed to update car.');
+            alert('Failed to update task.');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Error updating car.');
+        alert('Error updating task.');
     });
 }
 
@@ -151,11 +190,55 @@ function deleteTask(id) {
     .then(response => {
         if (response.ok) {
             alert("Task deleted successfully.");
-            showAllTask();
+            orderTasks();
         } else {
             alert("Failed to delete task.");
         }
     });
 }
 
-showAllTask();
+async function orderTasks() {
+
+    // This function...
+    await showAllTask();
+    const allTasks = document.querySelector('#showAllTasks');
+    const tasks = allTasks.querySelectorAll('div#cards');
+    const sortedTasks = Array.from(tasks).sort((a, b) => {
+        const statusA = a.querySelector('.card-text:nth-of-type(2)').textContent.toLowerCase();
+        const statusB = b.querySelector('.card-text:nth-of-type(2)').textContent.toLowerCase();
+        const isCompletedA = statusA.includes('completed');
+        const isCompletedB = statusB.includes('completed');
+        if (isCompletedA && !isCompletedB) return 1;
+        if (!isCompletedA && isCompletedB) return -1;
+        // If both are completed or both are not, keep original order or sort by date if needed
+        const dateA = new Date(a.querySelector('.card-text').textContent.split(': ')[1]);
+        const dateB = new Date(b.querySelector('.card-text').textContent.split(': ')[1]);
+        return dateA - dateB;
+    });
+    allTasks.innerHTML = '';
+    sortedTasks.forEach(task => allTasks.appendChild(task)); 
+}
+
+const search = document.querySelector('#searchTask');
+const allTasks = document.querySelector('#showAllTasks');
+search.addEventListener('input', () => {
+
+    // This function...
+    const searchValue = search.value.toLowerCase();
+    const tasks = allTasks.querySelectorAll('div#cards');    
+    tasks.forEach(task => {
+        const info = task.querySelector('h5');
+        
+        // This line below is useful for ensuring that the search functionality does not break.
+        if (info) {
+            const taskName = info.textContent.toLowerCase();
+            if (!taskName.includes(searchValue)) {
+                task.style.display = 'none';
+            } else {
+                task.style.display = '';
+            }
+        }
+    });
+});
+
+orderTasks();
