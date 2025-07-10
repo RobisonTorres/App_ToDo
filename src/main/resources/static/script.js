@@ -46,7 +46,7 @@ function showAllTask() {
         data.forEach(task => {
             output += `
                         <div id="cards" class="col-md-6 col-lg-4">
-                        <div class="card shadow h-100 border-primary">
+                        <div class="card shadow h-100 border-secondary">
                             <div class="card-body d-flex flex-column">
                             <h5 class="card-title text-center text-primary mb-4">
                                 <i class="fas fa-tasks me-2"></i>${task.name}

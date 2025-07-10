@@ -5,11 +5,3 @@ CREATE TABLE IF NOT EXISTS tasks (
     status VARCHAR(40),
     priority VARCHAR(40)
 );
-
-INSERT INTO tasks (name, date, status, priority) VALUES
-('Finish project report', '2025-07-10', 'In_Progress', 'High'),
-('Team meeting', '2025-07-07', 'Completed', 'Medium'),
-('Code review', '2025-07-08', 'In_Progress', 'High'),
-('Update documentation', '2025-07-09', 'Suspended', 'Low'),
-('Fix login bug', '2025-07-06', 'Completed', 'Critical'),
-('Plan sprint', '2025-07-11', 'In_Progress', 'Medium');

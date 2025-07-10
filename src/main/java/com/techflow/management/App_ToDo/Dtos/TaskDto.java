@@ -1,11 +1,11 @@
 package com.techflow.management.App_ToDo.Dtos;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class TaskDto {
 
     private String name;
-    private Date date;
+    private LocalDate date;
     private String status;
     private String priority;
 
@@ -17,11 +17,11 @@ public class TaskDto {
         this.name = name;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

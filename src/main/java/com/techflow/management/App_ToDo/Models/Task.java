@@ -1,7 +1,9 @@
 package com.techflow.management.App_ToDo.Models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import java.util.Date;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "tasks")
@@ -11,7 +13,8 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private Date date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate date;
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
     @Enumerated(EnumType.STRING)
@@ -21,7 +24,7 @@ public class Task {
 
     }
 
-    public Task(Integer id, String name, Date date, TaskStatus status, Priority priority) {
+    public Task(Integer id, String name, LocalDate date, TaskStatus status, Priority priority) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -45,11 +48,11 @@ public class Task {
         this.name = name;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
