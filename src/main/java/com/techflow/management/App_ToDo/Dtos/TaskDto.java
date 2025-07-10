@@ -2,6 +2,8 @@ package com.techflow.management.App_ToDo.Dtos;
 
 import java.time.LocalDate;
 
+/*TaskDto is a Data Transfer Object (DTO) that represents a task in the application.
+It includes fields for the task's name, date, status, and priority. */
 public class TaskDto {
 
     private String name;

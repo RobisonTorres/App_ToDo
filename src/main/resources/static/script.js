@@ -1,7 +1,7 @@
 document.getElementById('addNewTask').addEventListener('click', displayForm);
 function displayForm() {
 
-    // This function...
+    // This function displays the form for adding a new task.
     closeFormUpdate(event);
     const form = document.getElementById('popForm');
     return form.style.display = 'block';
@@ -10,7 +10,7 @@ function displayForm() {
 document.getElementById('closeForm').addEventListener('click', closeForm);
 function closeForm(event) {
 
-    // This function...
+    // This function closes the form for adding a new task.
     event.preventDefault(); // It prevents form submission if button is in a form.
     const form = document.getElementById('popForm');
     return form.style.display = 'none';
@@ -18,7 +18,7 @@ function closeForm(event) {
 
 function displayFormUpdate() {
 
-    // This function...
+    // This function displays the form for updating on existing task.
     closeForm(event);
     const form = document.getElementById('popFormUpdate');
     return form.style.display = 'block';
@@ -27,7 +27,7 @@ function displayFormUpdate() {
 document.getElementById('closeFormUpdate').addEventListener('click', closeFormUpdate);
 function closeFormUpdate(event) {
 
-    // This function...
+    // This function closes the form for updating on existing task.
     event.preventDefault();
     const form = document.getElementById('popFormUpdate');
     return form.style.display = 'none';
@@ -35,7 +35,7 @@ function closeFormUpdate(event) {
 
 function showAllTask() {
 
-    // This function...
+    // This function fetches all tasks from the server and displays them.
     return fetch('http://localhost:8080/get_tasks', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' } 
@@ -83,7 +83,7 @@ function showAllTask() {
 
 function addTask() {
 
-    // This function...
+    // This function adds a new task by sending a POST request to the server.
     event.preventDefault();
     const taskDto = {
         name: document.getElementById('name').value,
@@ -119,7 +119,7 @@ function addTask() {
 
 function editTaskLoad(id) {
 
-    // This function...
+    // This function loads the task data into the update form for editing.
     displayFormUpdate();
     let taskId = parseInt(id, 10);
     fetch(`http://localhost:8080/get_task/${taskId}`, {
@@ -142,7 +142,7 @@ function editTaskLoad(id) {
 
 function updateTask(event) {
 
-    // This function...
+    // This function updates on existing task by sending a PUT request to the server.
     event.preventDefault();
     const taskDto = {
         id: document.getElementById('taskId').value,
@@ -179,7 +179,7 @@ function updateTask(event) {
 
 function deleteTask(id) {
 
-    // This function...
+    // This function deletes a task by sending a DELETE request to the server.
     if(!confirm("Are you sure you want to delete this task?")) {
         return;
     };
@@ -199,7 +199,7 @@ function deleteTask(id) {
 
 async function orderTasks() {
 
-    // This function...
+    // This function sorts tasks by their status and date.
     await showAllTask();
     const allTasks = document.querySelector('#showAllTasks');
     const tasks = allTasks.querySelectorAll('div#cards');
@@ -210,6 +210,7 @@ async function orderTasks() {
         const isCompletedB = statusB.includes('completed');
         if (isCompletedA && !isCompletedB) return 1;
         if (!isCompletedA && isCompletedB) return -1;
+        
         // If both are completed or both are not, keep original order or sort by date if needed
         const dateA = new Date(a.querySelector('.card-text').textContent.split(': ')[1]);
         const dateB = new Date(b.querySelector('.card-text').textContent.split(': ')[1]);
@@ -223,7 +224,7 @@ const search = document.querySelector('#searchTask');
 const allTasks = document.querySelector('#showAllTasks');
 search.addEventListener('input', () => {
 
-    // This function...
+    // This function filters tasks based on the search input.
     const searchValue = search.value.toLowerCase();
     const tasks = allTasks.querySelectorAll('div#cards');    
     tasks.forEach(task => {

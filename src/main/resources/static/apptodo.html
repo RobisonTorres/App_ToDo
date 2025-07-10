@@ -13,6 +13,7 @@
   <div class="container py-4">
     <h2 class="text-center mb-4 text-secondary">Welcome! You can manage all your tasks here.</h2>
 
+    <!-- Search and Add Task Section -->
     <section class="mb-4 d-flex">
       <input id="searchTask" type="text" name="search_info" class="form-control me-2" placeholder="Search task by title..." aria-label="Search tasks" />
       <button id="addNewTask" class="btn btn-primary text-nowrap" onclick="document.getElementById('popForm').style.display = 'block'">
@@ -20,11 +21,13 @@
       </button>
     </section>
 
+    <!-- Task Sorting Section -->
     <section>
       <div id="showAllTasks" class="row g-3"></div>
     </section>
   </div>
 
+  <!-- Task Creation Form -->
   <form id="popForm" class="form-popup container bg-white p-4 rounded shadow" style="display:none; max-width: 600px;">
     <h2 class="mb-4">Create New Task</h2>
     <div class="mb-3">
@@ -64,6 +67,7 @@
     </div>
   </form>
 
+  <!-- Task Update Form -->
   <form id="popFormUpdate" class="form-popup container bg-white p-4 rounded shadow mt-4" style="display:none; max-width: 600px;">
     <h2 class="mb-4">Edit Task Details</h2>
     <input type="hidden" id="taskId" />

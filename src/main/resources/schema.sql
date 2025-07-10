@@ -1,3 +1,5 @@
+-- This file is used to create the table in the database.
+
 CREATE TABLE IF NOT EXISTS tasks (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(80) NOT NULL,

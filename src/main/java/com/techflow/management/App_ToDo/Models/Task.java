@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
+// This class represents a Task entity in the application.
+// It includes fields for task ID, name, date, status, and priority.
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -79,5 +81,4 @@ public class Task {
     public enum Priority {
         Low, Medium, High, Critical
     }
-
 }
