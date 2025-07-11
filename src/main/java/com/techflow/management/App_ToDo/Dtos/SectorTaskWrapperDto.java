@@ -1,5 +1,7 @@
 package com.techflow.management.App_ToDo.Dtos;
 
+// This class is used to wrap Sector and Task DTOs together
+// to facilitate operations that involve both entities.
 public class SectorTaskWrapperDto {
 
     private SectorDto sectorDto;
@@ -20,5 +22,4 @@ public class SectorTaskWrapperDto {
     public void setTaskDto(TaskDto taskDto) {
         this.taskDto = taskDto;
     }
-
 }

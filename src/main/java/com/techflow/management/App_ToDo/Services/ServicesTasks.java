@@ -44,12 +44,12 @@ public class ServicesTasks {
     }
 
     public Sector checkExistingSector(String sector) {
-        // This function...
+        // This function checks if a sector exists by its name.
         return repositorySector.findByName(sector);
     }
 
     public Sector saveSector(Sector sector) {
-        // This function...
+        // This function saves a sector to the repository.
         return repositorySector.save(sector);
     }
 }
