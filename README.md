@@ -11,6 +11,10 @@ This application uses **HTML, CSS, and JavaScript** on the frontend, and **Java 
 - Delete task from the database.
 - Search and order task by its information.
 
+## Update README - New Scope
+
+The project has undergone a slight change in scope. Now, each task is associated with a specific sector of the company, helping to ensure a more robust and organized management system. This association allows for better categorization and prioritization of tasks, ultimately enhancing overall productivity.
+
 ## Methodology
 This project follows the agile methodology, using **Kanban** for task management.
 
