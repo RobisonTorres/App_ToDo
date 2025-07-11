@@ -1,6 +1,9 @@
 package com.techflow.management.App_ToDo.Controllers;
 
+import com.techflow.management.App_ToDo.Dtos.SectorDto;
+import com.techflow.management.App_ToDo.Dtos.SectorTaskWrapperDto;
 import com.techflow.management.App_ToDo.Dtos.TaskDto;
+import com.techflow.management.App_ToDo.Models.Sector;
 import com.techflow.management.App_ToDo.Models.Task;
 import com.techflow.management.App_ToDo.Services.ServicesTasks;
 import org.springframework.http.HttpStatus;
@@ -45,20 +48,40 @@ public class MainController {
     }
 
     @PostMapping("create_task")
-    public ResponseEntity<Task> createTask(@RequestBody TaskDto taskDto) {
+    public ResponseEntity<Task> createTask(@RequestBody SectorTaskWrapperDto sectorTaskWrapperDto) {
         // This method creates a new task from the provided TaskDto.
         // It maps the DTO to a Task entity and saves it using the service.
+        TaskDto taskDto = sectorTaskWrapperDto.getTaskDto();
         Task task = modelMapper.map(taskDto, Task.class);
+
+        SectorDto sectorDto = sectorTaskWrapperDto.getSectorDto();
+        Sector sector = modelMapper.map(sectorDto, Sector.class);
+
+        // Check if the sector already exists in the database.
+        // If it does, associate the existing sector with the task; otherwise, save the new sector.
+        Sector checkSector = servicesTasks.checkExistingSector(sector.getName());
+        task.setSector(checkSector == null ? sector : checkSector);
+        if (checkSector == null) servicesTasks.saveSector(sector);
+
         servicesTasks.saveTask(task);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("update_task/{id}")
-    public ResponseEntity<Task> updateTask(@RequestBody TaskDto taskDto, @PathVariable Integer id) {
+    public ResponseEntity<Task> updateTask(@RequestBody SectorTaskWrapperDto sectorTaskWrapperDto, @PathVariable Integer id) {
         // This method updates an existing task with the provided ID.
         // It maps the TaskDto to an existing Task entity and saves it.
         Task task = servicesTasks.getTaskById(id);
+        TaskDto taskDto = sectorTaskWrapperDto.getTaskDto();
         modelMapper.map(taskDto, task);
+
+        SectorDto sectorDto = sectorTaskWrapperDto.getSectorDto();
+        Sector sector = modelMapper.map(sectorDto, Sector.class);
+
+        Sector checkSector = servicesTasks.checkExistingSector(sector.getName());
+        task.setSector(checkSector == null ? sector : checkSector);
+        if (checkSector == null) servicesTasks.saveSector(sector);
+
         servicesTasks.saveTask(task);
         return ResponseEntity.ok().build();
     }

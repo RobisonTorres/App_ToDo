@@ -1,6 +1,8 @@
 package com.techflow.management.App_ToDo.Services;
 
+import com.techflow.management.App_ToDo.Models.Sector;
 import com.techflow.management.App_ToDo.Models.Task;
+import com.techflow.management.App_ToDo.Repositories.RepositorySector;
 import com.techflow.management.App_ToDo.Repositories.RepositoryTask;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,12 @@ public class ServicesTasks {
     /* This service class provides methods to manage tasks.
     It interacts with the RepositoryTask to perform CRUD operations.*/
     private final RepositoryTask repositoryTask;
+    private final RepositorySector repositorySector;
 
     // Constructor to inject the RepositoryTask dependency.
-    public ServicesTasks(RepositoryTask repositoryTask) {
+    public ServicesTasks(RepositoryTask repositoryTask, RepositorySector repositorySector) {
         this.repositoryTask = repositoryTask;
+        this.repositorySector = repositorySector;
     }
 
     public Task getTaskById(Integer id) {
@@ -38,5 +42,14 @@ public class ServicesTasks {
         // This function deletes a task by its ID.
         repositoryTask.deleteById(id);
     }
-    
+
+    public Sector checkExistingSector(String sector) {
+        // This function...
+        return repositorySector.findByName(sector);
+    }
+
+    public Sector saveSector(Sector sector) {
+        // This function...
+        return repositorySector.save(sector);
+    }
 }

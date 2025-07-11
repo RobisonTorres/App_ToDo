@@ -10,6 +10,7 @@ public class TaskDto {
     private LocalDate date;
     private String status;
     private String priority;
+    private Integer sector_id;
 
     public String getName() {
         return name;
@@ -43,4 +44,11 @@ public class TaskDto {
         this.priority = priority;
     }
 
+    public Integer getSector_id() {
+        return sector_id;
+    }
+
+    public void setSector_id(Integer sector_id) {
+        this.sector_id = sector_id;
+    }
 }

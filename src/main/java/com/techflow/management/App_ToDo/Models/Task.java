@@ -2,7 +2,6 @@ package com.techflow.management.App_ToDo.Models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 // This class represents a Task entity in the application.
@@ -22,16 +21,21 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
+    @ManyToOne
+    @JoinColumn(name = "sector_id", nullable = false)
+    private Sector sector;
+
     public Task() {
 
     }
 
-    public Task(Integer id, String name, LocalDate date, TaskStatus status, Priority priority) {
+    public Task(Integer id, String name, LocalDate date, TaskStatus status, Priority priority, Sector sector) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.status = status;
         this.priority = priority;
+        this.sector = sector;
     }
 
     public Integer getId() {
@@ -72,6 +76,14 @@ public class Task {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public Sector getSector() {
+        return sector;
+    }
+
+    public void setSector(Sector sector) {
+        this.sector = sector;
     }
 
     public enum TaskStatus {
