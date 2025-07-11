@@ -51,17 +51,18 @@ function showAllTask() {
                             <h5 class="card-title text-center text-primary mb-4">
                                 <i class="fas fa-tasks me-2"></i>${task.name}
                             </h5>
-
                             <p class="card-text mb-2">
                                 <i class="far fa-calendar-alt me-2 text-muted"></i><strong>Date:</strong> ${task.date}
                             </p>
                             <p class="card-text mb-2">
                                 <i class="fas fa-info-circle me-2 text-muted"></i><strong>Status:</strong> ${task.status}
                             </p>
-                            <p class="card-text mb-3">
+                            <p class="card-text mb-2">
                                 <i class="fas fa-exclamation-triangle me-2 text-muted"></i><strong>Priority:</strong> ${task.priority}
                             </p>
-
+                            <p class="card-text mb-3">
+                                <i class="bi bi-building me-2 text-muted"></i><strong>Sector:</strong> ${task.sector ? task.sector.name : '—'}
+                            </p>
                             <div class="d-flex justify-content-center gap-2 mt-auto pt-3">
                                 <button class="btn btn-outline-primary flex-grow-1" onclick="editTaskLoad(${task.id})">
                                 <i class="fas fa-pen me-1"></i> Edit
@@ -85,22 +86,29 @@ function addTask() {
 
     // This function adds a new task by sending a POST request to the server.
     event.preventDefault();
-    const taskDto = {
-        name: document.getElementById('name').value,
+    const sector = {
+        name: document.getElementById('sector').value.trim()
+    }
+    const task = {
+        name: document.getElementById('name').value.trim(),
         date: document.getElementById('date').value,   
         status: document.getElementById('status').value,
         priority: document.getElementById('priority').value 
     }
-    if (!taskDto.name || !taskDto.date || !taskDto.status || !taskDto.priority) {
+    if (!sector.name || !task.name || !task.date || !task.status || !task.priority) {
         alert("Please fill in all fields.");
         return;
+    }
+    const sectorTaskWrapperDto = {
+        taskDto: task,
+        sectorDto: sector
     }
     fetch('http://localhost:8080/create_task', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(taskDto)
+        body: JSON.stringify(sectorTaskWrapperDto)
     })
     .then(response => {
         if (response.ok) {
@@ -133,6 +141,7 @@ function editTaskLoad(id) {
         document.getElementById('dateUpdate').value = task.date;
         document.getElementById('statusUpdate').value = task.status;
         document.getElementById('priorityUpdate').value = task.priority;
+        document.getElementById('sectorUpdate').value = task.sector.name;
     })
     .catch(error => {
         console.error('Error fetching task:', error);
@@ -144,23 +153,31 @@ function updateTask(event) {
 
     // This function updates on existing task by sending a PUT request to the server.
     event.preventDefault();
-    const taskDto = {
-        id: document.getElementById('taskId').value,
+    const sector = {
+        name: document.getElementById('sectorUpdate').value.trim()
+    }
+    const task = {
+        id: document.getElementById('taskId').value.trim(),
         name: document.getElementById('nameUpdate').value,
         date: document.getElementById('dateUpdate').value,
         status: document.getElementById('statusUpdate').value,
         priority: document.getElementById('priorityUpdate').value
     }
-    if (!taskDto.name || !taskDto.date || !taskDto.status || !taskDto.priority) {
+    if (!sector.name || !task.name || !task.date || !task.status || !task.priority) {
         alert("Please fill in all fields.");
         return;
     }
-    fetch(`http://localhost:8080/update_task/${taskDto.id}`, {
+    const sectorTaskWrapperDto = {
+        taskDto: task,
+        sectorDto: sector   
+    }
+
+    fetch(`http://localhost:8080/update_task/${task.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(taskDto)
+        body: JSON.stringify(sectorTaskWrapperDto)
     })
     .then(response => {
         if (response.ok) {
